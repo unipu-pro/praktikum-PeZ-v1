@@ -4,6 +4,20 @@ import sys
 
 import ollama_client
 
+# Week 3 down
+import signal
+from pathlib import Path
+
+VERSION_FILE = Path(__file__).with_name("VERSION.txt")
+
+
+def read_version() -> str:
+    """Returns the version from version.txt (bumped by release-please), or 0.0.0 when the file is missing."""
+    try:
+        return VERSION_FILE.read_text(encoding="utf-8").strip()
+    except FileNotFoundError:
+        return "0.0.0" 
+# Week 3 up
 
 def cmd_status(args: argparse.Namespace) -> int:
     if ollama_client.is_running():
@@ -40,6 +54,7 @@ def cmd_chat(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="llm", description="Talk to a local Ollama model.")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {read_version()}") #Week 3 new line
     parser.add_argument("--model", default=None, help="model name (default: OLLAMA_MODEL or llama3.2:1b)")
     parser.add_argument("--system", default=None, help="optional system prompt")
     subcommands = parser.add_subparsers(dest="command", required=True)
@@ -54,8 +69,12 @@ def build_parser() -> argparse.ArgumentParser:
     subcommands.add_parser("chat", help="interactive chat with history").set_defaults(handler=cmd_chat)
     return parser
 
+def _exit_on_sigterm(signum, frame) -> None: #Week 3 new func
+    # `docker stop` sends SIGTERM to PID 1. Python ignores it there unless a handler exists.
+    raise SystemExit(128 + signum)
 
 def main() -> int:
+    signal.signal(signal.SIGTERM, _exit_on_sigterm) #Week 3 new line
     args = build_parser().parse_args()
     try:
         return args.handler(args)

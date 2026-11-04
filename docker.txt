@@ -1,13 +1,11 @@
 ## docker build --target test
-#17 -8.099 ==================== 1 failed, 6 passed, 1 skipped in 0.49s ====================
--8.099 ==================== 1 failed, 6 passed, 1 skipped in 0.49s ====================
-ERROR: failed to build: failed to solve: process "/bin/sh -c python -m pytest -v" did not complete successfully: exit code: 1
+#17 1.382 ========================= 7 passed, 1 skipped in 0.42s =========================
 ## version
-llm 0.0.0
+llm 0.0.1
 ## user
 uid=10001(app) gid=10001(app) groups=10001(app)
 ## status
-Ollama is NOT running at http://localhost:11434
+Ollama is running at http://host.docker.internal:11434
 ## stop
-stopped in 0.170 s
+stopped in 0.000 s
 exit code 143

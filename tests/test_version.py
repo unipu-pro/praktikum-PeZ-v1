@@ -3,7 +3,7 @@ from pathlib import Path
 
 import llm
 
-VERSION_FILE = Path(__file__).resolve().parent.parent / "version.txt"
+VERSION_FILE = Path(__file__).resolve().parent.parent / "VERSION.txt"
 
 
 def test_read_version_matches_version_file():

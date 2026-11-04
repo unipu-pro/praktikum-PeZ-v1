@@ -8,7 +8,7 @@ import ollama_client
 import signal
 from pathlib import Path
 
-VERSION_FILE = Path(__file__).with_name("version.txt")
+VERSION_FILE = Path(__file__).with_name("VERSION.txt")
 
 
 def read_version() -> str:

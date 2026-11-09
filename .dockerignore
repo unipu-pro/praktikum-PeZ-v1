@@ -8,3 +8,5 @@ __pycache__
 .env
 pytest.txt
 docker.txt
+storage.txt
+compose.txt
